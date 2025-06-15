@@ -1,0 +1,6 @@
+Delete the following folders and their contents:
+- public/css/
+- public/js/
+- views/
+
+These files are now duplicated and organized under pages/.

@@ -3,6 +3,8 @@
      - Notifications (comments or like made to your posts)
      - loop search / filter
      - nav bar -->   
+
+<!--I am in a concurse in which i have to program 100 hours. I will do a cheatsheets page where people can upload their cheatsheets. They will have to correspond to a particular theam and will have to solve a proble, any. You have to start programing this in html, css and js. You can also use express for the backend and API routes.-->
      <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,7 +13,7 @@
     <title>Cheatsheets - Red Social</title>
     <link rel="stylesheet" href="home.css">
 </head>
-<body>
+<body role="application">
     <!-- Skip to main content para accesibilidad -->
     <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
@@ -108,7 +110,7 @@
     </aside>
 
     <!-- Contenido principal -->
-    <main class="main-content" id="main-content" role="main">
+    <main class="main-content" id="main-content" role="main" tabindex="-1">
         <header class="content-header">
             <h1>Inicio</h1>
         </header>
@@ -151,9 +153,30 @@
             </form>
         </section>
 
+        <!-- Formulario para subir cheatsheet -->
+        <section class="cheatsheet-upload" aria-label="Subir cheatsheet">
+            <form id="cheatsheet-upload-form" enctype="multipart/form-data">
+                <input type="text" name="title" placeholder="Título" required>
+                <input type="text" name="theme" placeholder="Tema" required>
+                <textarea name="description" placeholder="Descripción" required></textarea>
+                <input type="file" name="file" required>
+                <button type="submit">Subir Cheatsheet</button>
+            </form>
+        </section>
+
+        <!-- Buscador de cheatsheets -->
+        <section class="cheatsheet-search" aria-label="Buscar cheatsheets">
+            <input id="cheatsheet-search" type="text" placeholder="Buscar por tema o título..." style="width:100%;padding:0.5rem;margin-bottom:1rem;">
+        </section>
+
+        <!-- Listado de cheatsheets -->
+        <section class="cheatsheets-list" aria-label="Cheatsheets subidas">
+            <div id="cheatsheets-list"></div>
+        </section>
+
         <!-- Feed de publicaciones -->
-        <section class="posts" aria-label="Publicaciones recientes">
-            <article class="post" role="article">
+        <section class="posts" aria-label="Publicaciones recientes" role="feed">
+            <article class="post" role="article" tabindex="0">
                 <header class="post-header">
                     <img src="/placeholder.svg?height=48&width=48" alt="Avatar de john_doe" class="user-avatar">
                     <div class="user-info">
@@ -168,25 +191,25 @@
                 </div>
                 
                 <footer class="post-actions-bar" role="toolbar" aria-label="Acciones de publicación">
-                    <button class="action-btn" aria-label="Comentar, 12 comentarios">
+                    <button class="action-btn" aria-label="Comentar, 12 comentarios" tabindex="0">
                         <span aria-hidden="true">💬</span>
                         <span>12</span>
                     </button>
-                    <button class="action-btn" aria-label="Retwittear, 5 retweets">
+                    <button class="action-btn" aria-label="Retwittear, 5 retweets" tabindex="0">
                         <span aria-hidden="true">🔄</span>
                         <span>5</span>
                     </button>
-                    <button class="action-btn" aria-label="Me gusta, 23 likes">
+                    <button class="action-btn" aria-label="Me gusta, 23 likes" tabindex="0">
                         <span aria-hidden="true">❤️</span>
                         <span>23</span>
                     </button>
-                    <button class="action-btn" aria-label="Compartir">
+                    <button class="action-btn" aria-label="Compartir" tabindex="0">
                         <span aria-hidden="true">📤</span>
                     </button>
                 </footer>
             </article>
 
-            <article class="post" role="article">
+            <article class="post" role="article" tabindex="0">
                 <header class="post-header">
                     <img src="/placeholder.svg?height=48&width=48" alt="Avatar de jane_smith" class="user-avatar">
                     <div class="user-info">
@@ -201,24 +224,45 @@
                 </div>
                 
                 <footer class="post-actions-bar" role="toolbar" aria-label="Acciones de publicación">
-                    <button class="action-btn" aria-label="Comentar, 8 comentarios">
+                    <button class="action-btn" aria-label="Comentar, 8 comentarios" tabindex="0">
                         <span aria-hidden="true">💬</span>
                         <span>8</span>
                     </button>
-                    <button class="action-btn" aria-label="Retwittear, 3 retweets">
+                    <button class="action-btn" aria-label="Retwittear, 3 retweets" tabindex="0">
                         <span aria-hidden="true">🔄</span>
                         <span>3</span>
                     </button>
-                    <button class="action-btn" aria-label="Me gusta, 15 likes">
+                    <button class="action-btn" aria-label="Me gusta, 15 likes" tabindex="0">
                         <span aria-hidden="true">❤️</span>
                         <span>15</span>
                     </button>
-                    <button class="action-btn" aria-label="Compartir">
+                    <button class="action-btn" aria-label="Compartir" tabindex="0">
                         <span aria-hidden="true">📤</span>
                     </button>
                 </footer>
             </article>
         </section>
+
+        <!-- Sección de autenticación -->
+        <section id="auth-section" style="display:none;max-width:400px;margin:2rem auto;padding:1rem;background:#fff;border-radius:8px;">
+            <h2>Iniciar sesión</h2>
+            <form id="login-form">
+                <input name="username" type="text" placeholder="Usuario" required>
+                <input name="password" type="password" placeholder="Contraseña" required>
+                <button type="submit">Entrar</button>
+            </form>
+            <h2>Registrarse</h2>
+            <form id="register-form">
+                <input name="username" type="text" placeholder="Usuario" required>
+                <input name="password" type="password" placeholder="Contraseña" required>
+                <button type="submit">Crear cuenta</button>
+            </form>
+        </section>
+        <button id="logout-btn" style="display:block;margin:1rem auto;">Cerrar sesión</button>
+
+        <!-- Panel de notificaciones -->
+        <section id="notifications-panel" style="max-width:400px;margin:2rem auto;padding:1rem;background:#f8f9fa;border-radius:8px;"></section>
+        <button onclick="markNotificationsRead()" style="display:block;margin:0 auto 2rem auto;">Marcar notificaciones como leídas</button>
     </main>
 
     <!-- Panel derecho -->
@@ -289,6 +333,7 @@
         </section>
     </aside>
 
+    <script src="home.js"></script>
     <script src="../../main.js"></script>
 </body>
 </html>

@@ -366,3 +366,221 @@ document.addEventListener('click', function(e) {
         }
     }
 });
+
+// Backend Express
+const express = require('express');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+const bcrypt = require('bcryptjs');
+const session = require('express-session');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const storage = require('./storage');
+const threadRoutes = require('./routes/threadRoutes');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Configuración de Multer para subir archivos a /uploads
+const uploadConfig = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, 'uploads'));
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+const upload = multer({ storage: uploadConfig });
+
+// Middleware para servir archivos estáticos
+app.use(express.static(path.join(__dirname, 'pages')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(express.json());
+app.use(session({
+    secret: 'cheatsheets-secret',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Google OAuth config
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID || 'GOOGLE_CLIENT_ID_HERE',
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'GOOGLE_CLIENT_SECRET_HERE',
+    callbackURL: '/auth/google/callback'
+}, (accessToken, refreshToken, profile, done) => {
+    let user = users.find(u => u.googleId === profile.id);
+    if (!user) {
+        user = { username: profile.displayName, googleId: profile.id, notifications: [] };
+        users.push(user);
+        saveAll();
+    }
+    return done(null, user);
+}));
+
+passport.serializeUser((user, done) => {
+    done(null, user.googleId || user.username);
+});
+passport.deserializeUser((id, done) => {
+    let user = users.find(u => u.googleId === id || u.username === id);
+    done(null, user);
+});
+
+// Google Auth routes
+app.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
+app.get('/auth/google/callback', passport.authenticate('google', {
+    failureRedirect: '/pages/Login/views/login.html',
+    successRedirect: '/pages/Home/views/home.html'
+}));
+
+// Persistent users and cheatsheets
+let users = storage.loadUsers();
+let cheatsheets = storage.loadCheatsheets();
+
+function saveAll() {
+    storage.saveUsers(users);
+    storage.saveCheatsheets(cheatsheets);
+}
+
+// API: Register
+app.post('/api/register', async (req, res) => {
+    const { username, password } = req.body;
+    if (!username || !password) return res.status(400).json({ error: 'Faltan campos' });
+    if (users.find(u => u.username === username)) return res.status(400).json({ error: 'Usuario ya existe' });
+    const hash = await bcrypt.hash(password, 10);
+    const user = { username, password: hash, notifications: [] };
+    users.push(user);
+    saveAll();
+    req.session.user = username;
+    res.json({ username });
+});
+
+// API: Login
+app.post('/api/login', async (req, res) => {
+    const { username, password } = req.body;
+    const user = users.find(u => u.username === username);
+    if (!user) return res.status(400).json({ error: 'Usuario no encontrado' });
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) return res.status(400).json({ error: 'Contraseña incorrecta' });
+    req.session.user = username;
+    res.json({ username });
+});
+
+// API: Logout
+app.post('/api/logout', (req, res) => {
+    req.session.destroy(() => res.json({ ok: true }));
+});
+
+// Middleware: require login
+function requireLogin(req, res, next) {
+    if (!req.session.user) return res.status(401).json({ error: 'No autenticado' });
+    next();
+}
+
+// API: Obtener cheatsheets (con filtro por tema o título)
+app.get('/api/cheatsheets', (req, res) => {
+    const { search } = req.query;
+    let filtered = cheatsheets;
+    if (search) {
+        const s = search.toLowerCase();
+        filtered = cheatsheets.filter(cs =>
+            cs.title.toLowerCase().includes(s) ||
+            cs.theme.toLowerCase().includes(s)
+        );
+    }
+    res.json(filtered);
+});
+
+// API: Subir cheatsheet (solo autenticado)
+app.post('/api/cheatsheets', requireLogin, upload.single('file'), (req, res) => {
+    const { title, theme, description } = req.body;
+    if (!req.file || !title || !theme || !description) {
+        return res.status(400).json({ error: 'Faltan campos requeridos' });
+    }
+    const fileUrl = `/uploads/${req.file.filename}`;
+    const cheatsheet = {
+        id: Date.now().toString(),
+        title,
+        theme,
+        description,
+        fileUrl,
+        likes: 0,
+        likedBy: [],
+        comments: [],
+        createdAt: new Date().toISOString(),
+        user: req.session.user
+    };
+    cheatsheets.push(cheatsheet);
+    saveAll();
+    res.status(201).json({ message: 'Cheatsheet subida', cheatsheet });
+});
+
+// API: Like a cheatsheet (solo autenticado, una vez por usuario)
+app.post('/api/cheatsheets/:id/like', requireLogin, (req, res) => {
+    const cs = cheatsheets.find(c => c.id === req.params.id);
+    if (!cs) return res.status(404).json({ error: 'No encontrado' });
+    if (cs.likedBy.includes(req.session.user)) return res.status(400).json({ error: 'Ya le diste like' });
+    cs.likes++;
+    cs.likedBy.push(req.session.user);
+    // Notificación
+    if (cs.user && cs.user !== req.session.user) {
+        const owner = users.find(u => u.username === cs.user);
+        if (owner) {
+            owner.notifications.push({
+                type: 'like',
+                from: req.session.user,
+                cheatsheetId: cs.id,
+                date: new Date().toISOString()
+            });
+        }
+    }
+    saveAll();
+    res.json({ likes: cs.likes });
+});
+
+// API: Comentar cheatsheet (solo autenticado)
+app.post('/api/cheatsheets/:id/comment', requireLogin, (req, res) => {
+    const cs = cheatsheets.find(c => c.id === req.params.id);
+    if (!cs) return res.status(404).json({ error: 'No encontrado' });
+    const { text } = req.body;
+    if (!text) return res.status(400).json({ error: 'Comentario vacío' });
+    const comment = { text, user: req.session.user, date: new Date().toISOString() };
+    cs.comments.push(comment);
+    // Notificación
+    if (cs.user && cs.user !== req.session.user) {
+        const owner = users.find(u => u.username === cs.user);
+        if (owner) {
+            owner.notifications.push({
+                type: 'comment',
+                from: req.session.user,
+                cheatsheetId: cs.id,
+                text,
+                date: new Date().toISOString()
+            });
+        }
+    }
+    saveAll();
+    res.json({ comments: cs.comments });
+});
+
+// API: Obtener notificaciones (solo autenticado)
+app.get('/api/notifications', requireLogin, (req, res) => {
+    const user = users.find(u => u.username === req.session.user);
+    if (!user) return res.status(404).json({ error: 'No encontrado' });
+    res.json(user.notifications || []);
+});
+
+// API: Marcar notificaciones como leídas
+app.post('/api/notifications/read', requireLogin, (req, res) => {
+    const user = users.find(u => u.username === req.session.user);
+    if (user) user.notifications = [];
+    saveAll();
+    res.json({ ok: true });
+});
+
+// Iniciar servidor
+app.listen(PORT, () => {
+    console.log(`Servidor escuchando en http://localhost:${PORT}`);
+});

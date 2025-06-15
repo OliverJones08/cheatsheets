@@ -1,0 +1,351 @@
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f8fa;
+  color: #222;
+  min-height: 100vh;
+}
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.skip-link:focus {
+  left: 0;
+  top: 0;
+  width: auto;
+  height: auto;
+  background: #1da1f2;
+  color: #fff;
+  padding: 1rem;
+  z-index: 1000;
+}
+
+/* Layout */
+.main-content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.right-panel {
+  display: none;
+}
+
+/* Sidebar and header for mobile */
+.mobile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #1da1f2;
+  color: #fff;
+  padding: 1rem;
+}
+.menu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.hamburger {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: #fff;
+  margin: 4px 0;
+  border-radius: 2px;
+}
+.logo-mobile {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.sidebar {
+  display: none;
+}
+.overlay {
+  display: none;
+}
+
+/* Feed and posts */
+.posts {
+  margin-top: 2rem;
+}
+.post {
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+.post-content {
+  margin: 1rem 0;
+}
+.post-actions-bar {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: flex-start;
+}
+.action-btn {
+  background: none;
+  border: none;
+  color: #1da1f2;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+}
+
+/* Forms */
+.post-input, .cheatsheet-upload {
+  margin: 2rem 0 1rem 0;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+.post-form, #cheatsheet-upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+textarea, input[type="text"], input[type="file"] {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+.post-submit, .cheatsheet-upload button {
+  background: #1da1f2;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cheatsheets-list {
+  margin: 2rem 0;
+}
+.cheatsheet-item {
+  background: #fff;
+  border: 1px solid #e1e8ed;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.cheatsheet-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  font-size: 0.9em;
+  color: #888;
+}
+.cheatsheet-meta button {
+  background: none;
+  border: none;
+  color: #e0245e;
+  font-size: 1em;
+  cursor: pointer;
+}
+.cheatsheet-comments {
+  margin-top: 0.5rem;
+  background: #f1f3f4;
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+.cheatsheet-comments form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.cheatsheet-comments input {
+  flex: 1;
+  padding: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.cheatsheet-comments button {
+  background: #1da1f2;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+}
+.comments-list .comment {
+  margin-bottom: 0.3rem;
+  font-size: 0.95em;
+  background: #fff;
+  border-radius: 3px;
+  padding: 0.2rem 0.5rem;
+}
+.comments-list small {
+  color: #aaa;
+  margin-left: 0.5em;
+}
+
+/* Spinner */
+.spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #1da1f2;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Back to top button */
+#back-to-top {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  transition: opacity 0.3s, background 0.2s;
+  opacity: 0.85;
+}
+#back-to-top:hover, #back-to-top:focus {
+  opacity: 1;
+  background: #0d8ddb;
+}
+
+/* Lazy-loaded images */
+img[loading="lazy"] {
+  filter: blur(0.7px);
+  transition: filter 0.3s;
+}
+img[loading="lazy"][data-loaded="true"] {
+  filter: none;
+}
+
+/* Dark mode styles */
+:root {
+  --bg: #f5f8fa;
+  --text: #222;
+  --panel: #fff;
+  --primary: #1da1f2;
+  --border: #e1e8ed;
+}
+body.dark-mode {
+  --bg: #181c1f;
+  --text: #f5f8fa;
+  --panel: #23272a;
+  --primary: #1da1f2;
+  --border: #2c2f33;
+  background: var(--bg);
+  color: var(--text);
+}
+body, .main-content, .right-panel, .sidebar, .post, .cheatsheet-item, .cheatsheet-upload, .post-input {
+  background: var(--bg);
+  color: var(--text);
+}
+.main-content, .right-panel, .sidebar, .post, .cheatsheet-item, .cheatsheet-upload, .post-input {
+  background: var(--panel);
+  border-color: var(--border);
+}
+.post-submit, .cheatsheet-upload button, .cheatsheet-comments button {
+  background: var(--primary);
+}
+
+/* Transitions and focus states */
+.post, .cheatsheet-item, .post-submit, .cheatsheet-upload button, .cheatsheet-comments button, #back-to-top {
+  transition: box-shadow 0.2s, background 0.2s, color 0.2s, opacity 0.2s;
+}
+.post:focus, .cheatsheet-item:focus {
+  outline: 2px solid #1da1f2;
+  box-shadow: 0 0 0 3px #1da1f233;
+}
+.action-btn:focus {
+  outline: 2px solid #1da1f2;
+}
+
+/* Responsive styles */
+@media (min-width: 900px) {
+  body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .sidebar {
+    display: block;
+    width: 250px;
+    min-height: 100vh;
+    background: #fff;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .main-content {
+    margin: 2rem 2rem 2rem 0;
+    max-width: 700px;
+  }
+  .right-panel {
+    display: block;
+    width: 350px;
+    margin-left: 2rem;
+    position: sticky;
+    top: 2rem;
+    align-self: flex-start;
+  }
+  .mobile-header, .overlay {
+    display: none;
+  }
+}
+@media (max-width: 899px) {
+  .sidebar, .right-panel {
+    display: none;
+  }
+  .main-content {
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .mobile-header {
+    display: flex;
+  }
+}
+@media (max-width: 600px) {
+  .main-content {
+    padding: 0.5rem;
+  }
+  .post, .cheatsheet-item {
+    padding: 0.7rem;
+  }
+  .post-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .user-avatar {
+    width: 36px;
+    height: 36px;
+  }
+}

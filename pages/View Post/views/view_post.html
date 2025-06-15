@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ver publicación - Cheatsheets</title>
+  <link rel="stylesheet" href="../css/view_post.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+  <main id="main-content">
+    <div class="view-post-container" aria-label="Ver publicación">
+      <h2>Publicación</h2>
+      <div id="thread-content" class="thread-content" tabindex="0"></div>
+      <div class="thread-actions" id="thread-actions"></div>
+      <form class="reply-form" id="reply-form">
+        <input type="text" placeholder="Responder..." required maxlength="180">
+        <button type="submit">Responder</button>
+      </form>
+      <div class="replies-list" id="replies-list"></div>
+      <form class="comment-form" id="comment-form">
+        <input type="text" placeholder="Comentar..." required maxlength="180">
+        <button type="submit">Comentar</button>
+      </form>
+      <div class="comments-list" id="comments-list"></div>
+      <div style="text-align:center;margin-top:1.5rem;">
+        <a href="../../Home/views/home.html" style="color:#1da1f2;text-decoration:underline;">Volver al inicio</a>
+      </div>
+    </div>
+  </main>
+  <script src="../js/view_post.js" defer></script>
+</body>
+</html>
