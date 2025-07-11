@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium - Cheatsheets</title>
+    <link rel="stylesheet" href="/pages/Home/home.css">
+</head>
+<body role="application">
+    <!-- Skip to main content para accesibilidad -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <!-- Header móvil -->
+    <header class="mobile-header" role="banner">
+        <button 
+            class="menu-toggle" 
+            onclick="toggleSidebar()" 
+            aria-label="Abrir menú de navegación"
+            aria-expanded="false"
+            aria-controls="sidebar">
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+        </button>
+        <h1 class="logo-mobile">Cheatsheets</h1>
+        <button class="post-btn-mobile" aria-label="Crear nueva publicación">
+            <span class="sr-only">Crear</span>
+            <span aria-hidden="true">✏️</span>
+        </button>
+    </header>
+
+    <!-- Overlay para móvil -->
+    <div class="overlay" id="overlay" onclick="closeSidebar()" aria-hidden="true"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Navegación principal">
+        <div class="sidebar-content">
+            <div class="logo" role="img" aria-label="Logo de Cheatsheets">Cheatsheets</div>
+            
+            <nav>
+                <ul class="menu" role="menubar">
+                    <li role="none">
+                        <a href="/pages/Home/home.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">🏠</span>
+                            <span>Inicio</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Explore/explore.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">🔍</span>
+                            <span>Explorar</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Notifications/notifications.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">🔔</span>
+                            <span>Notificaciones</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Messages/messages.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">💬</span>
+                            <span>Mensajes</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Saved/saved.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">📖</span>
+                            <span>Guardados</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Communities/communities.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">👥</span>
+                            <span>Comunidades</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Premium/premium.html" role="menuitem" class="menu-item active" aria-current="page">
+                            <span class="icon" aria-hidden="true">⭐</span>
+                            <span>Premium</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Profile/profile.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">👤</span>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">⋯</span>
+                            <span>Más</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <button class="post-btn" aria-label="Crear nueva publicación">Publicar</button>
+        </div>
+        
+        <div class="user-box" id="userBox" role="region" aria-label="Información del usuario"></div>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="main-content" id="main-content" role="main" tabindex="-1">
+<main class="main-content">
+        <header class="content-header">
+            <h1>⭐ Cheatsheets Premium</h1>
+            <p>Desbloquea todo el potencial de la plataforma</p>
+        </header>
+
+        <section class="premium-section">
+            <div class="premium-hero">
+                <h2>Mejora tu experiencia con Premium</h2>
+                <p>Accede a características exclusivas y herramientas avanzadas</p>
+            </div>
+
+            <div class="pricing-plans">
+                <div class="plan-card basic">
+                    <div class="plan-header">
+                        <h3>Básico</h3>
+                        <div class="price">
+                            <span class="amount">Gratis</span>
+                        </div>
+                    </div>
+                    <ul class="features-list">
+                        <li>✅ Acceso a cheatsheets públicos</li>
+                        <li>✅ Subir hasta 5 cheatsheets</li>
+                        <li>✅ Participar en comunidades</li>
+                        <li>✅ Notificaciones básicas</li>
+                        <li>❌ Cheatsheets privados</li>
+                        <li>❌ Análisis avanzados</li>
+                        <li>❌ Soporte prioritario</li>
+                    </ul>
+                    <button class="plan-btn current">Plan Actual</button>
+                </div>
+
+                <div class="plan-card premium recommended">
+                    <div class="recommended-badge">Recomendado</div>
+                    <div class="plan-header">
+                        <h3>Premium</h3>
+                        <div class="price">
+                            <span class="amount">$9.99</span>
+                            <span class="period">/mes</span>
+                        </div>
+                    </div>
+                    <ul class="features-list">
+                        <li>✅ Todo lo del plan básico</li>
+                        <li>✅ Cheatsheets ilimitados</li>
+                        <li>✅ Cheatsheets privados</li>
+                        <li>✅ Gestión avanzada de tiempo</li>
+                        <li>✅ Análisis detallados</li>
+                        <li>✅ Temas personalizados</li>
+                        <li>✅ Exportar a PDF/PNG</li>
+                        <li>✅ Sin publicidad</li>
+                    </ul>
+                    <button class="plan-btn premium-btn" onclick="upgradeToPremium()">Mejorar a Premium</button>
+                </div>
+
+                <div class="plan-card pro">
+                    <div class="plan-header">
+                        <h3>Pro</h3>
+                        <div class="price">
+                            <span class="amount">$19.99</span>
+                            <span class="period">/mes</span>
+                        </div>
+                    </div>
+                    <ul class="features-list">
+                        <li>✅ Todo lo del plan Premium</li>
+                        <li>✅ API de acceso completo</li>
+                        <li>✅ Colaboración en equipo</li>
+                        <li>✅ Branding personalizado</li>
+                        <li>✅ Soporte prioritario 24/7</li>
+                        <li>✅ Integración con herramientas</li>
+                        <li>✅ Análisis de equipos</li>
+                    </ul>
+                    <button class="plan-btn pro-btn" onclick="upgradeToPro()">Mejorar a Pro</button>
+                </div>
+            </div>
+
+            <div class="premium-features">
+                <h2>Características Premium</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Análisis Avanzados</h3>
+                        <p>Obtén insights detallados sobre el rendimiento de tus cheatsheets, vistas, likes y engagement.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Temas Personalizados</h3>
+                        <p>Personaliza la apariencia de tus cheatsheets con temas exclusivos y opciones de branding.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Contenido Privado</h3>
+                        <p>Crea cheatsheets privados para tu uso personal o compártelos solo con tu equipo.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">⏰</div>
+                        <h3>Gestión de Tiempo</h3>
+                        <p>Herramientas avanzadas de productividad, Pomodoro, seguimiento de tiempo y recordatorios.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📤</div>
+                        <h3>Exportación Avanzada</h3>
+                        <p>Exporta tus cheatsheets a PDF, PNG o formatos personalizados con alta calidad.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🚀</div>
+                        <h3>Sin Publicidad</h3>
+                        <p>Disfruta de una experiencia sin interrupciones, sin anuncios ni distracciones.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonials">
+                <h2>Lo que dicen nuestros usuarios Premium</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <p>"Los análisis avanzados me han ayudado a entender mejor qué tipo de contenido funciona. ¡Mis cheatsheets ahora tienen 3x más engagement!"</p>
+                        <div class="testimonial-author">
+                            <img src="/placeholder.svg?height=40&width=40" alt="Avatar">
+                            <div>
+                                <strong>María González</strong>
+                                <span>Desarrolladora Full Stack</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <p>"La gestión de tiempo integrada es increíble. Puedo trabajar en mis cheatsheets mientras uso el Pomodoro y veo mi productividad real."</p>
+                        <div class="testimonial-author">
+                            <img src="/placeholder.svg?height=40&width=40" alt="Avatar">
+                            <div>
+                                <strong>Carlos Rodríguez</strong>
+                                <span>Tech Lead</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <p>"Los temas personalizados hacen que mis cheatsheets se vean profesionales. Perfecto para presentaciones y mi marca personal."</p>
+                        <div class="testimonial-author">
+                            <img src="/placeholder.svg?height=40&width=40" alt="Avatar">
+                            <div>
+                                <strong>Ana López</strong>
+                                <span>UX Designer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2>Preguntas Frecuentes</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <h3 onclick="toggleFaq(this)">¿Puedo cancelar mi suscripción en cualquier momento? <span>+</span></h3>
+                        <p>Sí, puedes cancelar tu suscripción Premium en cualquier momento desde tu perfil. Seguirás teniendo acceso a las características Premium hasta el final de tu período de facturación.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 onclick="toggleFaq(this)">¿Qué pasa con mis cheatsheets si cancelo Premium? <span>+</span></h3>
+                        <p>Todos tus cheatsheets permanecerán intactos. Los privados se convertirán en públicos automáticamente después de 30 días, pero tendrás tiempo para exportarlos antes.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 onclick="toggleFaq(this)">¿Hay descuentos para estudiantes? <span>+</span></h3>
+                        <p>Sí, ofrecemos un 50% de descuento para estudiantes verificados. Contáctanos con tu email institucional para aplicar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    
+    <script>
+        // Funciones para el sidebar móvil
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (sidebar && overlay && menuToggle) {
+                const isOpen = sidebar.classList.contains('active');
+                
+                if (isOpen) {
+                    closeSidebar();
+                } else {
+                    sidebar.classList.add('active');
+                    overlay.classList.add('active');
+                    menuToggle.setAttribute('aria-expanded', 'true');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (sidebar && overlay && menuToggle) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Cerrar sidebar al hacer clic en un enlace del menú
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuLinks = document.querySelectorAll('.menu-item');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    // Solo cerrar en móvil
+                    if (window.innerWidth <= 768) {
+                        closeSidebar();
+                    }
+                });
+            });
+
+            // Cerrar sidebar al redimensionar la ventana
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    closeSidebar();
+                }
+            });
+        });
+    </script>
+    <!-- Script principal para funciones compartidas -->
+    <script src="/main.js"></script>
+</body>
+</html>

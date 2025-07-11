@@ -378,8 +378,18 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const storage = require('./storage');
 const threadRoutes = require('./routes/threadRoutes');
+const userRoutes = require('./routes/userRoutes');
+const { createServer } = require('http');
+const { Server } = require('socket.io');
 
 const app = express();
+const server = createServer(app);
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+});
 const PORT = process.env.PORT || 3000;
 
 // Configuración de Multer para subir archivos a /uploads
@@ -534,6 +544,13 @@ app.post('/api/cheatsheets/:id/like', requireLogin, (req, res) => {
                 cheatsheetId: cs.id,
                 date: new Date().toISOString()
             });
+            // Enviar notificación en tiempo real
+            sendRealTimeNotification(cs.user, {
+                type: 'like',
+                from: req.session.user,
+                cheatsheetId: cs.id,
+                date: new Date().toISOString()
+            });
         }
     }
     saveAll();
@@ -553,6 +570,14 @@ app.post('/api/cheatsheets/:id/comment', requireLogin, (req, res) => {
         const owner = users.find(u => u.username === cs.user);
         if (owner) {
             owner.notifications.push({
+                type: 'comment',
+                from: req.session.user,
+                cheatsheetId: cs.id,
+                text,
+                date: new Date().toISOString()
+            });
+            // Enviar notificación en tiempo real
+            sendRealTimeNotification(cs.user, {
                 type: 'comment',
                 from: req.session.user,
                 cheatsheetId: cs.id,
@@ -580,7 +605,42 @@ app.post('/api/notifications/read', requireLogin, (req, res) => {
     res.json({ ok: true });
 });
 
+// Socket.IO real-time notifications
+const connectedUsers = new Map();
+
+io.on('connection', (socket) => {
+    console.log('User connected:', socket.id);
+    
+    socket.on('authenticate', (username) => {
+        connectedUsers.set(username, socket.id);
+        socket.username = username;
+        console.log(`User ${username} authenticated`);
+    });
+    
+    socket.on('disconnect', () => {
+        if (socket.username) {
+            connectedUsers.delete(socket.username);
+            console.log(`User ${socket.username} disconnected`);
+        }
+    });
+});
+
+// Helper function to send real-time notification
+function sendRealTimeNotification(username, notification) {
+    const socketId = connectedUsers.get(username);
+    if (socketId) {
+        io.to(socketId).emit('notification', notification);
+    }
+}
+
+// Hacer sendRealTimeNotification global
+global.sendRealTimeNotification = sendRealTimeNotification;
+
+// Rutas de la API
+app.use('/api/threads', threadRoutes);
+app.use('/api/users', userRoutes);
+
 // Iniciar servidor
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });

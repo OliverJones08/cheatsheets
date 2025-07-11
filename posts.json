@@ -1,0 +1,58 @@
+[
+  {
+    "id": "post-1",
+    "content": "¡Acabo de subir un nuevo cheatsheet sobre React Hooks! 🚀 Espero que les sea útil para sus proyectos.",
+    "type": "quick_post",
+    "likes": 23,
+    "likedBy": [],
+    "comments": [],
+    "retweets": 5,
+    "retweetedBy": [],
+    "createdAt": "2025-07-10T14:30:00.000Z",
+    "updatedAt": "2025-07-10T14:30:00.000Z",
+    "user": "David Silva",
+    "timeZone": "America/Sao_Paulo"
+  },
+  {
+    "id": "post-2",
+    "content": "¿Cuál es su método favorito de array en JavaScript? El mío definitivamente es .map() 💙 #JavaScript #WebDev",
+    "type": "quick_post",
+    "likes": 45,
+    "likedBy": [],
+    "comments": [],
+    "retweets": 8,
+    "retweetedBy": [],
+    "createdAt": "2025-07-10T12:15:00.000Z",
+    "updatedAt": "2025-07-10T12:15:00.000Z",
+    "user": "María González",
+    "timeZone": "Europe/Madrid"
+  },
+  {
+    "id": "post-3",
+    "content": "Tip del día: Siempre usen 'git status' antes de hacer commit. Les salvará de muchos dolores de cabeza 😅",
+    "type": "quick_post",
+    "likes": 67,
+    "likedBy": [],
+    "comments": [],
+    "retweets": 12,
+    "retweetedBy": [],
+    "createdAt": "2025-07-10T09:45:00.000Z",
+    "updatedAt": "2025-07-10T09:45:00.000Z",
+    "user": "Ana Martínez",
+    "timeZone": "America/Mexico_City"
+  },
+  {
+    "id": "post-4",
+    "content": "Trabajando en un nuevo cheatsheet de CSS Grid. ¿Qué propiedades les resultan más confusas? 🤔",
+    "type": "quick_post",
+    "likes": 34,
+    "likedBy": [],
+    "comments": [],
+    "retweets": 6,
+    "retweetedBy": [],
+    "createdAt": "2025-07-09T18:20:00.000Z",
+    "updatedAt": "2025-07-09T18:20:00.000Z",
+    "user": "Carlos López",
+    "timeZone": "Europe/Madrid"
+  }
+]

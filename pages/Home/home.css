@@ -790,7 +790,567 @@ textarea:focus {
     margin-bottom: 1rem;
 }
 
-/* RESPONSIVE DESIGN */
+/* Time Management Dashboard Styles */
+.time-management-dashboard {
+    background: var(--bg-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.dashboard-header h2 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.toggle-dashboard {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.toggle-dashboard:hover {
+    background: var(--hover-color);
+}
+
+.dashboard-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.time-widget {
+    background: white;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e1e8ed;
+    transition: all 0.3s ease;
+}
+
+.time-widget:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.widget-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e1e8ed;
+}
+
+.widget-header h3 {
+    margin: 0;
+    color: var(--text-color);
+    font-size: 1.1rem;
+}
+
+.widget-toggle {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.widget-toggle:hover {
+    background: var(--hover-color);
+}
+
+/* Clock Widget */
+.main-clock {
+    text-align: center;
+    padding: 1rem;
+}
+
+.current-time {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-family: 'Courier New', monospace;
+}
+
+.current-date {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.timezone-info {
+    font-size: 0.9rem;
+    color: var(--secondary-text-color);
+}
+
+/* World Clocks */
+.world-clocks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.world-clock-item {
+    text-align: center;
+    padding: 0.75rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.world-clock-item:hover {
+    background: #e9ecef;
+    transform: scale(1.02);
+}
+
+.world-clock-name {
+    font-size: 0.85rem;
+    color: var(--secondary-text-color);
+    margin-bottom: 0.25rem;
+}
+
+.world-clock-time {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+    font-family: 'Courier New', monospace;
+}
+
+.world-clock-date {
+    font-size: 0.8rem;
+    color: var(--secondary-text-color);
+}
+
+.world-clock-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-left: 0.25rem;
+}
+
+.world-clock-indicator.day {
+    background: #ffc107;
+}
+
+.world-clock-indicator.night {
+    background: #6c757d;
+}
+
+/* Pomodoro Timer */
+.pomodoro-timer {
+    text-align: center;
+}
+
+.timer-display {
+    margin-bottom: 1.5rem;
+}
+
+.timer-circle {
+    width: 150px;
+    height: 150px;
+    border: 8px solid #e9ecef;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    position: relative;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.timer-time {
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+}
+
+.timer-session {
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+.timer-progress {
+    width: 100%;
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.timer-controls {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.timer-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    background: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.timer-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.timer-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.timer-stats {
+    font-size: 0.9rem;
+    color: var(--secondary-text-color);
+}
+
+/* Reminders */
+.reminder-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.reminder-form input,
+.reminder-form select {
+    padding: 0.5rem;
+    border: 1px solid #e1e8ed;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.reminder-form button {
+    grid-column: 1 / -1;
+    padding: 0.5rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.reminder-form button:hover {
+    background: var(--primary-hover);
+}
+
+.reminders-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.reminder-item {
+    padding: 0.75rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 4px solid var(--primary-color);
+}
+
+.reminder-info {
+    flex: 1;
+}
+
+.reminder-title {
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
+.reminder-time {
+    font-size: 0.8rem;
+    color: var(--secondary-text-color);
+}
+
+.reminder-actions {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.reminder-action {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.reminder-action:hover {
+    background: var(--hover-color);
+}
+
+/* Productivity Tracker */
+.productivity-controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.productivity-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    background: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.productivity-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.productivity-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.productivity-controls select {
+    padding: 0.5rem;
+    border: 1px solid #e1e8ed;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.productivity-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 0.5rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #e9ecef;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--secondary-text-color);
+    margin-bottom: 0.25rem;
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.productivity-chart {
+    text-align: center;
+}
+
+/* Analytics */
+.analytics-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.analytics-tab {
+    padding: 0.5rem 1rem;
+    border: 1px solid #e1e8ed;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.analytics-tab.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.analytics-tab:hover:not(.active) {
+    background: var(--hover-color);
+}
+
+.analytics-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.5rem;
+}
+
+.analytics-metric {
+    text-align: center;
+    padding: 0.75rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+    border: 1px solid #e9ecef;
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: block;
+}
+
+.metric-label {
+    font-size: 0.8rem;
+    color: var(--secondary-text-color);
+    margin-top: 0.25rem;
+}
+
+/* Quick Actions */
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.5rem;
+}
+
+.quick-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0.5rem;
+    background: white;
+    border: 2px solid #e1e8ed;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.quick-action:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.action-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.action-text {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Dark mode support */
+.dark-mode .time-widget {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+.dark-mode .world-clock-item {
+    background: #2a2a2a;
+    border-color: #333;
+}
+
+.dark-mode .world-clock-item:hover {
+    background: #333;
+}
+
+.dark-mode .reminder-item {
+    background: #2a2a2a;
+}
+
+.dark-mode .stat-item {
+    background: #2a2a2a;
+    border-color: #333;
+}
+
+.dark-mode .analytics-metric {
+    background: #2a2a2a;
+    border-color: #333;
+}
+
+.dark-mode .quick-action {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+.dark-mode .quick-action:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .dashboard-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .world-clocks-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .reminder-form {
+        grid-template-columns: 1fr;
+    }
+    
+    .productivity-controls {
+        flex-direction: column;
+    }
+    
+    .analytics-tabs {
+        flex-direction: column;
+    }
+    
+    .quick-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 
 /* Pantallas grandes */
 @media (max-width: 1280px) {

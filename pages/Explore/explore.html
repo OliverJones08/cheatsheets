@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorar - Cheatsheets</title>
+    <link rel="stylesheet" href="/pages/Home/home.css">
+</head>
+<body role="application">
+    <!-- Skip to main content para accesibilidad -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <!-- Header móvil -->
+    <header class="mobile-header" role="banner">
+        <button 
+            class="menu-toggle" 
+            onclick="toggleSidebar()" 
+            aria-label="Abrir menú de navegación"
+            aria-expanded="false"
+            aria-controls="sidebar">
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+        </button>
+        <h1 class="logo-mobile">Cheatsheets</h1>
+        <button class="post-btn-mobile" aria-label="Crear nueva publicación">
+            <span class="sr-only">Crear</span>
+            <span aria-hidden="true">✏️</span>
+        </button>
+    </header>
+
+    <!-- Overlay para móvil -->
+    <div class="overlay" id="overlay" onclick="closeSidebar()" aria-hidden="true"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Navegación principal">
+        <div class="sidebar-content">
+            <div class="logo" role="img" aria-label="Logo de Cheatsheets">Cheatsheets</div>
+            
+            <nav>
+                <ul class="menu" role="menubar">
+                    <li role="none">
+                        <a href="/pages/Home/home.html" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">🏠</span>
+                            <span>Inicio</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Explore/explore.html" role="menuitem" class="menu-item active" aria-current="page">
+                            <span class="icon" aria-hidden="true">🔍</span>
+                            <span>Explorar</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Notifications/notifications.html" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">🔔</span>
+                            <span>Notificaciones</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Messages/messages.html" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">💬</span>
+                            <span>Mensajes</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Saved/saved.html" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">📖</span>
+                            <span>Guardados</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Communities/communities.html" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">👥</span>
+                            <span>Comunidades</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Premium/premium.html" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">⭐</span>
+                            <span>Premium</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Profile/profile.html" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">👤</span>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">⋯</span>
+                            <span>Más</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <button class="post-btn" aria-label="Crear nueva publicación">Publicar</button>
+        </div>
+        
+        <div class="user-box" id="userBox" role="region" aria-label="Información del usuario"></div>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="main-content" id="main-content" role="main" tabindex="-1">
+        <header class="content-header">
+            <h1>Explorar</h1>
+        </header>
+
+        <section class="explore-content">
+            <div class="search-section">
+                <h2>🔍 Buscar Cheatsheets</h2>
+                <input type="text" id="search-input" placeholder="Buscar por tema, título o autor...">
+                <div class="search-filters">
+                    <button class="filter-btn active" onclick="filterByCategory('all')">Todos</button>
+                    <button class="filter-btn" onclick="filterByCategory('javascript')">JavaScript</button>
+                    <button class="filter-btn" onclick="filterByCategory('python')">Python</button>
+                    <button class="filter-btn" onclick="filterByCategory('css')">CSS</button>
+                    <button class="filter-btn" onclick="filterByCategory('react')">React</button>
+                </div>
+            </div>
+
+            <div class="trending-section">
+                <h2>🔥 Tendencias</h2>
+                <div class="trending-topics">
+                    <span class="topic-tag">#JavaScript</span>
+                    <span class="topic-tag">#React</span>
+                    <span class="topic-tag">#CSS</span>
+                    <span class="topic-tag">#Python</span>
+                    <span class="topic-tag">#WebDev</span>
+                </div>
+            </div>
+
+            <div class="posts-section">
+                <h2>📝 Cheatsheets Populares</h2>
+                <div id="explore-posts" class="posts-grid">
+                    <!-- Los posts se cargarán aquí -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Funcionalidad básica de exploración
+        document.addEventListener('DOMContentLoaded', function() {
+            loadExplorePosts();
+            setupSearch();
+        });
+
+        function loadExplorePosts() {
+            // Simular carga de posts populares
+            const postsContainer = document.getElementById('explore-posts');
+            postsContainer.innerHTML = `
+                <div class="post-card">
+                    <h3>JavaScript ES6+ Cheatsheet</h3>
+                    <p>Guía completa de las nuevas características de JavaScript</p>
+                    <div class="post-stats">
+                        <span>❤️ 125</span>
+                        <span>💬 32</span>
+                        <span>🔄 45</span>
+                    </div>
+                </div>
+                <div class="post-card">
+                    <h3>CSS Grid y Flexbox</h3>
+                    <p>Todo lo que necesitas saber sobre layouts modernos</p>
+                    <div class="post-stats">
+                        <span>❤️ 89</span>
+                        <span>💬 18</span>
+                        <span>🔄 27</span>
+                    </div>
+                </div>
+                <div class="post-card">
+                    <h3>React Hooks Guía</h3>
+                    <p>Domina los hooks de React con ejemplos prácticos</p>
+                    <div class="post-stats">
+                        <span>❤️ 156</span>
+                        <span>💬 42</span>
+                        <span>🔄 63</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function setupSearch() {
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('input', function(e) {
+                const query = e.target.value.toLowerCase();
+                // Implementar búsqueda en tiempo real
+                console.log('Buscando:', query);
+            });
+        }
+
+        function filterByCategory(category) {
+            // Actualizar botones activos
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Filtrar posts por categoría
+            console.log('Filtrando por:', category);
+        }
+    </script>
+
+    <style>
+        .explore-content {
+            padding: 2rem;
+        }
+
+        .search-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-filters {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e1e8ed;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: #1da1f2;
+            color: white;
+            border-color: #1da1f2;
+        }
+
+        .trending-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .trending-topics {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .topic-tag {
+            background: #f8f9fa;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            color: #1da1f2;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .topic-tag:hover {
+            background: #1da1f2;
+            color: white;
+        }
+
+        .posts-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .post-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e1e8ed;
+            transition: all 0.3s ease;
+        }
+
+        .post-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .post-card h3 {
+            margin: 0 0 0.5rem 0;
+            color: #333;
+        }
+
+        .post-card p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .post-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+    </style>
+
+    <script>
+        // Funciones para el sidebar móvil
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (sidebar && overlay && menuToggle) {
+                const isOpen = sidebar.classList.contains('active');
+                
+                if (isOpen) {
+                    closeSidebar();
+                } else {
+                    sidebar.classList.add('active');
+                    overlay.classList.add('active');
+                    menuToggle.setAttribute('aria-expanded', 'true');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (sidebar && overlay && menuToggle) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Cerrar sidebar al hacer clic en un enlace del menú
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuLinks = document.querySelectorAll('.menu-item');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    // Solo cerrar en móvil
+                    if (window.innerWidth <= 768) {
+                        closeSidebar();
+                    }
+                });
+            });
+
+            // Cerrar sidebar al redimensionar la ventana
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    closeSidebar();
+                }
+            });
+        });
+
+        // Funciones específicas de la página Explore
+        function filterByCategory(category) {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const cheatsheetCards = document.querySelectorAll('.cheatsheet-card');
+
+            // Update active filter button
+            filterBtns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter cheatsheet cards
+            cheatsheetCards.forEach(card => {
+                const cardCategory = card.dataset.category || '';
+                if (category === 'all' || cardCategory.toLowerCase() === category.toLowerCase()) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function searchCheatsheets() {
+            const searchInput = document.getElementById('search-input');
+            const searchTerm = searchInput.value.toLowerCase();
+            const cheatsheetCards = document.querySelectorAll('.cheatsheet-card');
+
+            cheatsheetCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Configurar la búsqueda en tiempo real
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.addEventListener('input', searchCheatsheets);
+            }
+        });
+    </script>
+    <!-- Script principal para funciones compartidas -->
+    <script src="/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificaciones - Cheatsheets</title>
+    <link rel="stylesheet" href="/pages/Home/home.css">
+</head>
+<body role="application">
+    <!-- Skip to main content para accesibilidad -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <!-- Header móvil -->
+    <header class="mobile-header" role="banner">
+        <button 
+            class="menu-toggle" 
+            onclick="toggleSidebar()" 
+            aria-label="Abrir menú de navegación"
+            aria-expanded="false"
+            aria-controls="sidebar">
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+        </button>
+        <h1 class="logo-mobile">Cheatsheets</h1>
+        <button class="post-btn-mobile" aria-label="Crear nueva publicación">
+            <span class="sr-only">Crear</span>
+            <span aria-hidden="true">✏️</span>
+        </button>
+    </header>
+
+    <!-- Overlay para móvil -->
+    <div class="overlay" id="overlay" onclick="closeSidebar()" aria-hidden="true"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Navegación principal">
+        <div class="sidebar-content">
+            <div class="logo" role="img" aria-label="Logo de Cheatsheets">Cheatsheets</div>
+            
+            <nav>
+                <ul class="menu" role="menubar">
+                    <li role="none">
+                        <a href="/pages/Home/home.html" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">🏠</span>
+                            <span>Inicio</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Explore/explore.html" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">🔍</span>
+                            <span>Explorar</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Notifications/notifications.html" role="menuitem" class="menu-item active" aria-current="page">
+                            <span class="icon" aria-hidden="true">🔔</span>
+                            <span>Notificaciones</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Messages/messages.html" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">💬</span>
+                            <span>Mensajes</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Saved/saved.html" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">📖</span>
+                            <span>Guardados</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Communities/communities.html" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">👥</span>
+                            <span>Comunidades</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Premium/premium.html" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">⭐</span>
+                            <span>Premium</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Profile/profile.html" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">👤</span>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">⋯</span>
+                            <span>Más</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <button class="post-btn" aria-label="Crear nueva publicación">Publicar</button>
+        </div>
+        
+        <div class="user-box" id="userBox" role="region" aria-label="Información del usuario"></div>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="main-content" id="main-content" role="main" tabindex="-1">
+        <header class="content-header">
+            <h1>Notificaciones</h1>
+            <button class="mark-all-read-btn" onclick="markAllAsRead()">Marcar todas como leídas</button>
+        </header>
+
+        <section class="notifications-section">
+            <div class="notification-filters">
+                <button class="filter-btn active" onclick="filterNotifications('all')">Todas</button>
+                <button class="filter-btn" onclick="filterNotifications('likes')">Me gusta</button>
+                <button class="filter-btn" onclick="filterNotifications('comments')">Comentarios</button>
+                <button class="filter-btn" onclick="filterNotifications('follows')">Seguidores</button>
+                <button class="filter-btn" onclick="filterNotifications('reminders')">Recordatorios</button>
+            </div>
+
+            <div id="notifications-list" class="notifications-list">
+                <!-- Las notificaciones se cargarán aquí -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNotifications();
+        });
+
+        function loadNotifications() {
+            const notificationsList = document.getElementById('notifications-list');
+            
+            // Simular notificaciones
+            const notifications = [
+                {
+                    id: 1,
+                    type: 'like',
+                    user: 'Ana García',
+                    action: 'le dio me gusta a tu cheatsheet',
+                    content: 'JavaScript ES6+ Guía',
+                    time: 'hace 5 min',
+                    read: false
+                },
+                {
+                    id: 2,
+                    type: 'comment',
+                    user: 'Carlos López',
+                    action: 'comentó en tu publicación',
+                    content: 'CSS Grid Tutorial',
+                    time: 'hace 15 min',
+                    read: false
+                },
+                {
+                    id: 3,
+                    type: 'follow',
+                    user: 'María Rodríguez',
+                    action: 'comenzó a seguirte',
+                    content: '',
+                    time: 'hace 1 hora',
+                    read: true
+                },
+                {
+                    id: 4,
+                    type: 'reminder',
+                    user: 'Sistema',
+                    action: 'Recordatorio: Tiempo de descanso',
+                    content: 'Tu sesión de Pomodoro ha terminado',
+                    time: 'hace 2 horas',
+                    read: true
+                }
+            ];
+
+            notificationsList.innerHTML = notifications.map(notification => `
+                <div class="notification-item ${notification.read ? 'read' : 'unread'}" data-id="${notification.id}">
+                    <div class="notification-icon">
+                        ${getNotificationIcon(notification.type)}
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-text">
+                            <strong>${notification.user}</strong> ${notification.action}
+                            ${notification.content ? `<span class="content-title">"${notification.content}"</span>` : ''}
+                        </div>
+                        <div class="notification-time">${notification.time}</div>
+                    </div>
+                    <div class="notification-actions">
+                        ${!notification.read ? '<button class="mark-read-btn" onclick="markAsRead(' + notification.id + ')">✓</button>' : ''}
+                        <button class="delete-notification-btn" onclick="deleteNotification(' + notification.id + ')">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getNotificationIcon(type) {
+            const icons = {
+                'like': '❤️',
+                'comment': '💬',
+                'follow': '👤',
+                'reminder': '⏰',
+                'share': '🔄'
+            };
+            return icons[type] || '🔔';
+        }
+
+        function markAsRead(id) {
+            const notification = document.querySelector(`[data-id="${id}"]`);
+            notification.classList.remove('unread');
+            notification.classList.add('read');
+            notification.querySelector('.mark-read-btn')?.remove();
+        }
+
+        function markAllAsRead() {
+            document.querySelectorAll('.notification-item.unread').forEach(notification => {
+                notification.classList.remove('unread');
+                notification.classList.add('read');
+                notification.querySelector('.mark-read-btn')?.remove();
+            });
+        }
+
+        function deleteNotification(id) {
+            const notification = document.querySelector(`[data-id="${id}"]`);
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }
+
+        function filterNotifications(type) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Implementar filtrado
+            console.log('Filtrando notificaciones por:', type);
+        }
+    </script>
+
+    <style>
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e1e8ed;
+        }
+
+        .mark-all-read-btn {
+            background: #1da1f2;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .notifications-section {
+            padding: 2rem;
+        }
+
+        .notification-filters {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .notifications-list {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .notification-item {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e1e8ed;
+            transition: all 0.3s ease;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-item.unread {
+            background: #f0f9ff;
+            border-left: 4px solid #1da1f2;
+        }
+
+        .notification-item:hover {
+            background: #f8f9fa;
+        }
+
+        .notification-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-text {
+            margin-bottom: 0.25rem;
+        }
+
+        .content-title {
+            color: #1da1f2;
+            font-style: italic;
+        }
+
+        .notification-time {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .notification-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .mark-read-btn, .delete-notification-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .mark-read-btn:hover {
+            background: #e8f5e8;
+        }
+
+        .delete-notification-btn:hover {
+            background: #ffe8e8;
+        }
+
+        @keyframes slideOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(100%); }
+        }
+    </style>
+    <!-- Script principal para funciones compartidas -->
+    <script src="/main.js"></script>
+</body>
+</html>

@@ -1,1 +1,58 @@
-[]
+[
+  {
+    "id": "1",
+    "title": "JavaScript Array Methods",
+    "theme": "JavaScript",
+    "description": "Una guía completa de todos los métodos de arrays en JavaScript con ejemplos prácticos",
+    "fileUrl": "/placeholder.svg?height=300&width=400",
+    "likes": 89,
+    "likedBy": [],
+    "comments": [],
+    "createdAt": "2025-07-10T10:30:00.000Z",
+    "updatedAt": "2025-07-10T10:30:00.000Z",
+    "user": "María González",
+    "timeZone": "Europe/Madrid"
+  },
+  {
+    "id": "2",
+    "title": "CSS Flexbox Cheat Sheet",
+    "theme": "CSS",
+    "description": "Todas las propiedades de Flexbox con ejemplos visuales y casos de uso comunes",
+    "fileUrl": "/placeholder.svg?height=300&width=400",
+    "likes": 156,
+    "likedBy": [],
+    "comments": [],
+    "createdAt": "2025-07-09T14:15:00.000Z",
+    "updatedAt": "2025-07-09T14:15:00.000Z",
+    "user": "Carlos López",
+    "timeZone": "Europe/Madrid"
+  },
+  {
+    "id": "3",
+    "title": "Git Commands Reference",
+    "theme": "Git",
+    "description": "Los comandos de Git más utilizados con explicaciones y ejemplos",
+    "fileUrl": "/placeholder.svg?height=300&width=400",
+    "likes": 203,
+    "likedBy": [],
+    "comments": [],
+    "createdAt": "2025-07-08T09:45:00.000Z",
+    "updatedAt": "2025-07-08T09:45:00.000Z",
+    "user": "Ana Martínez",
+    "timeZone": "America/Mexico_City"
+  },
+  {
+    "id": "4",
+    "title": "React Hooks Quick Reference",
+    "theme": "React",
+    "description": "Una referencia rápida de todos los hooks de React con ejemplos de uso",
+    "fileUrl": "/placeholder.svg?height=300&width=400",
+    "likes": 78,
+    "likedBy": [],
+    "comments": [],
+    "createdAt": "2025-07-07T16:20:00.000Z",
+    "updatedAt": "2025-07-07T16:20:00.000Z",
+    "user": "David Silva",
+    "timeZone": "America/Sao_Paulo"
+  }
+]

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Cheatsheets</title>
+    <link rel="stylesheet" href="/pages/Home/home.css">
+</head>
+<body role="application">
+    <!-- Skip to main content para accesibilidad -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <!-- Header móvil -->
+    <header class="mobile-header" role="banner">
+        <button 
+            class="menu-toggle" 
+            onclick="toggleSidebar()" 
+            aria-label="Abrir menú de navegación"
+            aria-expanded="false"
+            aria-controls="sidebar">
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+        </button>
+        <h1 class="logo-mobile">Cheatsheets</h1>
+        <button class="post-btn-mobile" aria-label="Crear nueva publicación">
+            <span class="sr-only">Crear</span>
+            <span aria-hidden="true">✏️</span>
+        </button>
+    </header>
+
+    <!-- Overlay para móvil -->
+    <div class="overlay" id="overlay" onclick="closeSidebar()" aria-hidden="true"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Navegación principal">
+        <div class="sidebar-content">
+            <div class="logo" role="img" aria-label="Logo de Cheatsheets">Cheatsheets</div>
+            
+            <nav>
+                <ul class="menu" role="menubar">
+                    <li role="none">
+                        <a href="/pages/Home/home.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">🏠</span>
+                            <span>Inicio</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Explore/explore.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">🔍</span>
+                            <span>Explorar</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Notifications/notifications.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">🔔</span>
+                            <span>Notificaciones</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Messages/messages.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">💬</span>
+                            <span>Mensajes</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Saved/saved.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">📖</span>
+                            <span>Guardados</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Communities/communities.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">👥</span>
+                            <span>Comunidades</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Premium/premium.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">⭐</span>
+                            <span>Premium</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Profile/profile.html" role="menuitem" class="menu-item active" aria-current="page">
+                            <span class="icon" aria-hidden="true">👤</span>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">⋯</span>
+                            <span>Más</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <button class="post-btn" aria-label="Crear nueva publicación">Publicar</button>
+        </div>
+        
+        <div class="user-box" id="userBox" role="region" aria-label="Información del usuario"></div>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="main-content" id="main-content" role="main" tabindex="-1">
+<main class="main-content">
+        <section class="profile-section">
+            <div class="profile-header">
+                <div class="profile-banner">
+                    <button class="edit-banner-btn" onclick="editBanner()" title="Cambiar banner">📷</button>
+                </div>
+                <div class="profile-info">
+                    <div class="profile-avatar-container">
+                        <img src="/placeholder.svg?height=120&width=120" alt="Tu avatar" class="profile-avatar" id="profile-avatar">
+                        <button class="edit-avatar-btn" onclick="editAvatar()" title="Cambiar avatar">📷</button>
+                    </div>
+                    <div class="profile-details">
+                        <h1 class="profile-name" id="profile-name">Tu Nombre</h1>
+                        <p class="profile-handle">@tu_usuario</p>
+                        <p class="profile-bio" id="profile-bio">Desarrollador apasionado por crear cheatsheets útiles y compartir conocimiento con la comunidad.</p>
+                        <div class="profile-meta">
+                            <span>📍 Madrid, España</span>
+                            <span>🗓️ Se unió en enero 2024</span>
+                            <span>🔗 <a href="https://tu-website.com" target="_blank">tu-website.com</a></span>
+                        </div>
+                        <div class="profile-stats">
+                            <span><strong>156</strong> Siguiendo</span>
+                            <span><strong>2.3K</strong> Seguidores</span>
+                            <span><strong>89</strong> Cheatsheets</span>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="edit-profile-btn" onclick="editProfile()">Editar perfil</button>
+                        <button class="share-profile-btn" onclick="shareProfile()">Compartir</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-tabs">
+                <button class="tab-btn active" onclick="showProfileTab('posts')">Publicaciones</button>
+                <button class="tab-btn" onclick="showProfileTab('cheatsheets')">Cheatsheets</button>
+                <button class="tab-btn" onclick="showProfileTab('likes')">Me gusta</button>
+                <button class="tab-btn" onclick="showProfileTab('analytics')">Análisis</button>
+                <button class="tab-btn" onclick="showProfileTab('settings')">Configuración</button>
+            </div>
+
+            <div class="profile-content">
+                <div id="posts-tab" class="tab-content active">
+                    <div class="posts-section">
+                        <div class="post-item">
+                            <div class="post-header">
+                                <span class="post-date">Hace 2 horas</span>
+                                <button class="post-options">⋯</button>
+                            </div>
+                            <p>Acabo de subir un nuevo cheatsheet sobre React Hooks. ¡Espero que les sea útil! 🚀</p>
+                            <div class="post-stats">
+                                <span>❤️ 23 likes</span>
+                                <span>💬 5 comentarios</span>
+                                <span>🔄 3 retweets</span>
+                            </div>
+                        </div>
+
+                        <div class="post-item">
+                            <div class="post-header">
+                                <span class="post-date">Hace 1 día</span>
+                                <button class="post-options">⋯</button>
+                            </div>
+                            <p>¿Cuál es su método favorito de array en JavaScript? El mío definitivamente es .map() 💙</p>
+                            <div class="post-stats">
+                                <span>❤️ 45 likes</span>
+                                <span>💬 12 comentarios</span>
+                                <span>🔄 8 retweets</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="cheatsheets-tab" class="tab-content">
+                    <div class="cheatsheets-grid">
+                        <div class="cheatsheet-card">
+                            <img src="/placeholder.svg?height=200&width=300" alt="JavaScript Arrays Cheatsheet" class="cheatsheet-preview">
+                            <div class="cheatsheet-info">
+                                <h3>JavaScript Array Methods</h3>
+                                <p>Una guía completa de métodos de arrays</p>
+                                <div class="cheatsheet-stats">
+                                    <span>👍 89 likes</span>
+                                    <span>👁️ 1.2K vistas</span>
+                                    <span>📥 245 descargas</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cheatsheet-card">
+                            <img src="/placeholder.svg?height=200&width=300" alt="CSS Flexbox Cheatsheet" class="cheatsheet-preview">
+                            <div class="cheatsheet-info">
+                                <h3>CSS Flexbox Guide</h3>
+                                <p>Todo sobre Flexbox en una página</p>
+                                <div class="cheatsheet-stats">
+                                    <span>👍 156 likes</span>
+                                    <span>👁️ 2.8K vistas</span>
+                                    <span>📥 567 descargas</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cheatsheet-card">
+                            <img src="/placeholder.svg?height=200&width=300" alt="Git Commands Cheatsheet" class="cheatsheet-preview">
+                            <div class="cheatsheet-info">
+                                <h3>Git Commands</h3>
+                                <p>Comandos esenciales de Git</p>
+                                <div class="cheatsheet-stats">
+                                    <span>👍 203 likes</span>
+                                    <span>👁️ 4.1K vistas</span>
+                                    <span>📥 892 descargas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="likes-tab" class="tab-content">
+                    <p>Cheatsheets que te han gustado...</p>
+                </div>
+
+                <div id="analytics-tab" class="tab-content">
+                    <div class="analytics-dashboard">
+                        <h2>Estadísticas del Perfil</h2>
+                        <div class="analytics-grid">
+                            <div class="analytics-card">
+                                <h3>Vistas del Perfil</h3>
+                                <div class="analytics-number">2,847</div>
+                                <div class="analytics-change positive">+12% esta semana</div>
+                            </div>
+                            <div class="analytics-card">
+                                <h3>Impresiones</h3>
+                                <div class="analytics-number">18,392</div>
+                                <div class="analytics-change positive">+8% esta semana</div>
+                            </div>
+                            <div class="analytics-card">
+                                <h3>Engagement</h3>
+                                <div class="analytics-number">4.2%</div>
+                                <div class="analytics-change negative">-2% esta semana</div>
+                            </div>
+                        </div>
+                        <div class="analytics-chart">
+                            <h3>Vistas de Cheatsheets - Últimos 30 días</h3>
+                            <canvas id="analytics-chart" width="600" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="settings-tab" class="tab-content">
+                    <div class="settings-section">
+                        <h2>Configuración de la Cuenta</h2>
+                        
+                        <div class="settings-group">
+                            <h3>Información Personal</h3>
+                            <form class="settings-form">
+                                <div class="form-group">
+                                    <label for="display-name">Nombre mostrado</label>
+                                    <input type="text" id="display-name" value="Tu Nombre">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bio">Biografía</label>
+                                    <textarea id="bio" rows="3">Desarrollador apasionado por crear cheatsheets útiles y compartir conocimiento con la comunidad.</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="location">Ubicación</label>
+                                    <input type="text" id="location" value="Madrid, España">
+                                </div>
+                                <div class="form-group">
+                                    <label for="website">Sitio web</label>
+                                    <input type="url" id="website" value="https://tu-website.com">
+                                </div>
+                                <button type="submit" class="save-settings-btn">Guardar cambios</button>
+                            </form>
+                        </div>
+
+                        <div class="settings-group">
+                            <h3>Privacidad</h3>
+                            <div class="setting-item">
+                                <input type="checkbox" id="private-profile" checked>
+                                <label for="private-profile">Perfil público</label>
+                            </div>
+                            <div class="setting-item">
+                                <input type="checkbox" id="show-email">
+                                <label for="show-email">Mostrar email en perfil</label>
+                            </div>
+                            <div class="setting-item">
+                                <input type="checkbox" id="allow-messages" checked>
+                                <label for="allow-messages">Permitir mensajes de otros usuarios</label>
+                            </div>
+                        </div>
+
+                        <div class="settings-group">
+                            <h3>Notificaciones</h3>
+                            <div class="setting-item">
+                                <input type="checkbox" id="email-notifications" checked>
+                                <label for="email-notifications">Notificaciones por email</label>
+                            </div>
+                            <div class="setting-item">
+                                <input type="checkbox" id="push-notifications" checked>
+                                <label for="push-notifications">Notificaciones push</label>
+                            </div>
+                            <div class="setting-item">
+                                <input type="checkbox" id="marketing-emails">
+                                <label for="marketing-emails">Emails de marketing</label>
+                            </div>
+                        </div>
+
+                        <div class="settings-group danger-zone">
+                            <h3>Zona de Peligro</h3>
+                            <button class="danger-btn" onclick="confirmAccountDeletion()">Eliminar cuenta</button>
+                            <p>Esta acción no se puede deshacer. Se eliminarán permanentemente todos tus datos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    
+    <script>
+        // Funciones para el sidebar móvil
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (sidebar && overlay && menuToggle) {
+                const isOpen = sidebar.classList.contains('active');
+                
+                if (isOpen) {
+                    closeSidebar();
+                } else {
+                    sidebar.classList.add('active');
+                    overlay.classList.add('active');
+                    menuToggle.setAttribute('aria-expanded', 'true');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (sidebar && overlay && menuToggle) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Cerrar sidebar al hacer clic en un enlace del menú
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuLinks = document.querySelectorAll('.menu-item');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    // Solo cerrar en móvil
+                    if (window.innerWidth <= 768) {
+                        closeSidebar();
+                    }
+                });
+            });
+
+            // Cerrar sidebar al redimensionar la ventana
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    closeSidebar();
+                }
+            });
+        });
+    </script>
+    <!-- Script principal para funciones compartidas -->
+    <script src="/main.js"></script>
+</body>
+</html>

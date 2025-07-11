@@ -43,6 +43,17 @@ exports.like = (req, res) => {
     if (thread.likedBy.includes(req.session.user)) return res.status(400).json({ error: 'Ya le diste like' });
     thread.likes++;
     thread.likedBy.push(req.session.user);
+    
+    // Send real-time notification
+    if (thread.user && thread.user !== req.session.user && global.sendRealTimeNotification) {
+        global.sendRealTimeNotification(thread.user, {
+            type: 'like',
+            from: req.session.user,
+            threadId: thread.id,
+            date: new Date().toISOString()
+        });
+    }
+    
     saveThreads();
     res.json({ likes: thread.likes });
 };
@@ -53,6 +64,18 @@ exports.comment = (req, res) => {
     const { text } = req.body;
     if (!text) return res.status(400).json({ error: 'Comentario vacío' });
     thread.comments.push({ user: req.session.user, text, date: new Date().toISOString() });
+    
+    // Send real-time notification
+    if (thread.user && thread.user !== req.session.user && global.sendRealTimeNotification) {
+        global.sendRealTimeNotification(thread.user, {
+            type: 'comment',
+            from: req.session.user,
+            threadId: thread.id,
+            text: text,
+            date: new Date().toISOString()
+        });
+    }
+    
     saveThreads();
     res.json(thread.comments);
 };
@@ -63,6 +86,17 @@ exports.repost = (req, res) => {
     if (thread.repostedBy.includes(req.session.user)) return res.status(400).json({ error: 'Ya lo has compartido' });
     thread.reposts++;
     thread.repostedBy.push(req.session.user);
+    
+    // Send real-time notification
+    if (thread.user && thread.user !== req.session.user && global.sendRealTimeNotification) {
+        global.sendRealTimeNotification(thread.user, {
+            type: 'repost',
+            from: req.session.user,
+            threadId: thread.id,
+            date: new Date().toISOString()
+        });
+    }
+    
     saveThreads();
     res.json({ reposts: thread.reposts });
 };

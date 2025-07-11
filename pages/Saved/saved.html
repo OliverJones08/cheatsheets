@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardados - Cheatsheets</title>
+    <link rel="stylesheet" href="/pages/Home/home.css">
+</head>
+<body role="application">
+    <!-- Skip to main content para accesibilidad -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <!-- Header móvil -->
+    <header class="mobile-header" role="banner">
+        <button 
+            class="menu-toggle" 
+            onclick="toggleSidebar()" 
+            aria-label="Abrir menú de navegación"
+            aria-expanded="false"
+            aria-controls="sidebar">
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+        </button>
+        <h1 class="logo-mobile">Cheatsheets</h1>
+        <button class="post-btn-mobile" aria-label="Crear nueva publicación">
+            <span class="sr-only">Crear</span>
+            <span aria-hidden="true">✏️</span>
+        </button>
+    </header>
+
+    <!-- Overlay para móvil -->
+    <div class="overlay" id="overlay" onclick="closeSidebar()" aria-hidden="true"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Navegación principal">
+        <div class="sidebar-content">
+            <div class="logo" role="img" aria-label="Logo de Cheatsheets">Cheatsheets</div>
+            
+            <nav>
+                <ul class="menu" role="menubar">
+                    <li role="none">
+                        <a href="/pages/Home/home.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">🏠</span>
+                            <span>Inicio</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Explore/explore.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">🔍</span>
+                            <span>Explorar</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Notifications/notifications.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">🔔</span>
+                            <span>Notificaciones</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Messages/messages.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">💬</span>
+                            <span>Mensajes</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Saved/saved.html" role="menuitem" class="menu-item active" aria-current="page">
+                            <span class="icon" aria-hidden="true">📖</span>
+                            <span>Guardados</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Communities/communities.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">👥</span>
+                            <span>Comunidades</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Premium/premium.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">⭐</span>
+                            <span>Premium</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="/pages/Profile/profile.html" role="menuitem" class="menu-item ">
+                            <span class="icon" aria-hidden="true">👤</span>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    <li role="none">
+                        <a href="#" role="menuitem" class="menu-item">
+                            <span class="icon" aria-hidden="true">⋯</span>
+                            <span>Más</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <button class="post-btn" aria-label="Crear nueva publicación">Publicar</button>
+        </div>
+        
+        <div class="user-box" id="userBox" role="region" aria-label="Información del usuario"></div>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="main-content" id="main-content" role="main" tabindex="-1">
+<main class="main-content">
+        <header class="content-header">
+            <h1>Guardados</h1>
+            <div class="saved-stats">
+                <span>Total guardados: <strong id="saved-count">0</strong></span>
+            </div>
+        </header>
+
+        <section class="saved-content">
+            <div class="saved-filters">
+                <button class="filter-btn active" onclick="filterSaved('all')">Todos</button>
+                <button class="filter-btn" onclick="filterSaved('cheatsheets')">Cheatsheets</button>
+                <button class="filter-btn" onclick="filterSaved('posts')">Publicaciones</button>
+                <button class="filter-btn" onclick="filterSaved('comments')">Comentarios</button>
+            </div>
+
+            <div class="saved-search">
+                <input type="text" placeholder="Buscar en guardados..." id="saved-search" onkeyup="searchSaved()">
+            </div>
+
+            <div id="saved-items" class="saved-items">
+                <!-- Ejemplo de items guardados -->
+                <div class="saved-item" data-type="cheatsheet">
+                    <div class="saved-item-header">
+                        <span class="saved-type">Cheatsheet</span>
+                        <span class="saved-date">Guardado hace 2 días</span>
+                        <button class="unsave-btn" onclick="unsaveItem(this)" title="Quitar de guardados">✖</button>
+                    </div>
+                    <div class="saved-item-content">
+                        <h3>JavaScript Array Methods</h3>
+                        <p>Una guía completa de todos los métodos de arrays en JavaScript con ejemplos prácticos.</p>
+                        <div class="saved-item-meta">
+                            <span>Por: @developer123</span>
+                            <span>👍 45 likes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="saved-item" data-type="post">
+                    <div class="saved-item-header">
+                        <span class="saved-type">Publicación</span>
+                        <span class="saved-date">Guardado hace 5 días</span>
+                        <button class="unsave-btn" onclick="unsaveItem(this)" title="Quitar de guardados">✖</button>
+                    </div>
+                    <div class="saved-item-content">
+                        <p>Excelente explicación sobre closures en JavaScript. Me ayudó mucho a entender el concepto.</p>
+                        <div class="saved-item-meta">
+                            <span>Por: @maria_dev</span>
+                            <span>💬 12 comentarios</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="saved-item" data-type="cheatsheet">
+                    <div class="saved-item-header">
+                        <span class="saved-type">Cheatsheet</span>
+                        <span class="saved-date">Guardado hace 1 semana</span>
+                        <button class="unsave-btn" onclick="unsaveItem(this)" title="Quitar de guardados">✖</button>
+                    </div>
+                    <div class="saved-item-content">
+                        <h3>CSS Flexbox Cheat Sheet</h3>
+                        <p>Todas las propiedades de Flexbox con ejemplos visuales y casos de uso comunes.</p>
+                        <div class="saved-item-meta">
+                            <span>Por: @css_master</span>
+                            <span>👍 89 likes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="saved-item" data-type="comment">
+                    <div class="saved-item-header">
+                        <span class="saved-type">Comentario</span>
+                        <span class="saved-date">Guardado hace 2 semanas</span>
+                        <button class="unsave-btn" onclick="unsaveItem(this)" title="Quitar de guardados">✖</button>
+                    </div>
+                    <div class="saved-item-content">
+                        <p>"Una técnica muy útil para optimizar las consultas de base de datos es usar índices compuestos..."</p>
+                        <div class="saved-item-meta">
+                            <span>Por: @db_expert</span>
+                            <span>En: Optimización de Bases de Datos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="no-saved-items" class="no-saved-items" style="display: none;">
+                <div class="empty-state">
+                    <h3>No tienes elementos guardados</h3>
+                    <p>Cuando guardes cheatsheets, publicaciones o comentarios, aparecerán aquí.</p>
+                    <a href="/pages/Explore/explore.html" class="btn">Explorar contenido</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    
+    <script>
+        // Funciones para el sidebar móvil
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (sidebar && overlay && menuToggle) {
+                const isOpen = sidebar.classList.contains('active');
+                
+                if (isOpen) {
+                    closeSidebar();
+                } else {
+                    sidebar.classList.add('active');
+                    overlay.classList.add('active');
+                    menuToggle.setAttribute('aria-expanded', 'true');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+        }
+
+        function closeSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (sidebar && overlay && menuToggle) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Cerrar sidebar al hacer clic en un enlace del menú
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuLinks = document.querySelectorAll('.menu-item');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    // Solo cerrar en móvil
+                    if (window.innerWidth <= 768) {
+                        closeSidebar();
+                    }
+                });
+            });
+
+            // Cerrar sidebar al redimensionar la ventana
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    closeSidebar();
+                }
+            });
+        });
+    </script>
+    <!-- Script principal para funciones compartidas -->
+    <script src="/main.js"></script>
+</body>
+</html>
